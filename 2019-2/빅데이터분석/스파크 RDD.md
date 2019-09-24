@@ -361,6 +361,8 @@ for line in sentences.collect():
         print word,
     print "\n-----"
 ```
+
+```
 Wikipedia 
 -----
 Apache Spark is an open source cluster computing framework. 
@@ -379,7 +381,8 @@ which has maintained it since.
 -----
 Spark provides an interface for programming entire clusters with 
 -----
-implicit data parallelism and fault-tolerance. 
+implicit data parallelism and fault-tolerance.
+``` 
 
 - 각 문장의 철자 갯수를 세어보기
 - 철자는  len()함수를 사용
@@ -492,6 +495,7 @@ for (k,v) in myRdd_group.collect():
 ```
 아파 아파치 스파크는 오픈 소스 클러스터 컴퓨팅 프레임워크이다.
 아파 아파치 스파크 아파치 스파크 아파치 스파크 아파치 스파크
+```
 -----
 im implicit data parallelism and fault-tolerance.
 -----
@@ -508,7 +512,7 @@ Or Originally developed at the University of California, Berkeley's AMPLab,
 -----
 wh which has maintained it since.
 -----
-
+```
 - 다음 데이터에 groupBy()를 적용하기
 - 먼저 SparkContext parallize() 함수를 사용하여 리스트에서 RDD를 생성
 ```
