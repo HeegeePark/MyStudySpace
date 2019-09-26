@@ -19,3 +19,4 @@
 - 화면 처리가 가능
 
 ## 실습
+- src link : https://github.com/HeegeePark/Study_Kotlin/tree/master/src/Permissions%20and%20Thread/03_HandlerIterativeTasks
