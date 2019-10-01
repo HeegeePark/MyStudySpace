@@ -530,5 +530,294 @@ _testRdd.groupBy(lambda x:x[0]).collect()
 [('key2', <pyspark.resultiterable.ResultIterable at 0x7f08b316ced0>),
  ('key1', <pyspark.resultiterable.ResultIterable at 0x7f08b3187350>)]
 
+## Pari RDD
 
+- Pair RDD는 key,value 쌍으로 구성된 RDD
+- 키에 대해 연산을 하는 byKey() 또는 값에 대해 byValue() 함수를 사용
+	- byKey	동일한 키에 대해 연산
+		- 단계 1: key-value를 계산한다. 각 key의 빈도를 계산 '(key,1)'
+		- 단계 2: byKey를 적용한다. 동일한 key의 value를 더해준다.
+	- byValue	예, mapValues()
+
+- groupByKey()	같은 key를 grouping, 부분partition에서 먼저 reduce하지 않고, 전체로 계산한다.
+- reduceByKey()	같은 key의 value를 합계, 부분partition에서 먼저 reduce하고, 전체로 계산한다. grouping + aggregation.
+즉 reduceByKey = groupByKey().reduce()
+
+- aggregateByKey()	reduceByKey()와 유사하지만 결과를 다른 형식으로 반환. For example (1,2),(1,4) as input and (1,"six") as output
+- mapValues()	PairRDD는 key,value가 있기 마련이다. value에 대해 적용하는 함수이다. 즉 key가 아니라 value에 적용하는 함수이다.
+
+### Pair RDD 생성
+- 테스트 데이터를 구성하고,  parallelize()함수를 사용하여 RDD 생성
+```
+_testList=[("key1",1),("key1",1),("key1",1),("key2",1),("key2",1),
+           ("key1",1),("key2",1),
+           ("key1",1),("key1",1),("key2",1),("key2",1)]
+_testRdd=spark.sparkContext.parallelize(_testList)
+```
+
+```
+_testRdd.keys().collect()
+```
+['key1',
+ 'key1',
+ 'key1',
+ 'key2',
+ 'key2',
+ 'key1',
+ 'key2',
+ 'key1',
+ 'key1',
+ 'key2',
+ 'key2']
+
+
+### groupByKey, reduceByKey, mapValues
+- reduceByKey : partition별로 작업을 먼저 수행
+- groupByKey : 메모리에 값을 모두 저장
+-  reduceByKey 또는 combineByKey를 사용하는 것을 추천
+	-  groupByKey는 메모리를 많이 사용하고, reduceByKey는 Partition별로 작업이 동시에 병렬적으로 수행될 수 있으므로 보다 빠르기 때문
+```
+_testRdd.reduceByKey(lambda x,y:x+y).collect()
+```
+[('key2', 5), ('key1', 6)]
+
+
+- groupByKey()함수의 결과는 ResultIterable하므로, mapValues()함수에 list() 함수를 적어주고 collect()하면 그 결과를 볼 수 있음.
+```
+_testRdd.groupByKey().collect()
+```
+[('key2', <pyspark.resultiterable.ResultIterable at 0x7f65001b6850>),
+ ('key1', <pyspark.resultiterable.ResultIterable at 0x7f65001b68d0>)]
+```
+_testRdd.groupByKey().mapValues(list).collect() # list is a function, that is, list()
+```
+[('key2', [1, 1, 1, 1, 1]), ('key1', [1, 1, 1, 1, 1, 1])]
+- 이해를 돕기 위해 mapValues()에 lambda함수를 사용해 1씩 더해보기
+	- 키는 변동이 없고, 값만 1씩 증가
+```
+_testRdd.mapValues(lambda x:x+1).collect()
+```
+[('key1', 2),
+ ('key1', 2),
+ ('key1', 2),
+ ('key2', 2),
+ ('key2', 2),
+ ('key1', 2),
+ ('key2', 2),
+ ('key1', 2),
+ ('key1', 2),
+ ('key2', 2),
+ ('key2', 2)]
+
+### 단어빈도 예제
+- 설명
+	- flatMap()은 RDD를 전체로 flatten해서 공백으로 분리하고, 단어빈도를 계산,  map()은 요소별로 적용
+	- 요소에 대해 단어빈도 **(x,1)**를 만듦
+	- groupByKey()는 key를 묶어줌.
+		- 그래서 ResultIterable iterator를 반환
+		
+```
+myRdd2\
+    .flatMap(lambda x:x.split())\
+    .map(lambda x:(x,1))\
+    .groupByKey()\
+    .take(3)
+```
+[(u'and', <pyspark.resultiterable.ResultIterable at 0x7ff4780e4f10>),
+ (u'\uc18c\uc2a4', <pyspark.resultiterable.ResultIterable at 0x7ff4780839d0>),
+ (u'is', <pyspark.resultiterable.ResultIterable at 0x7ff478083a10>)]
+
+- groupBy()를 하고 나면 결과는 ResultIterable이므로 mapValues(sum)을 하면 key별 합계를 구할 수 있음.
+- mapValues()는 value에 적용되는 함수
+	- mapValues()는 value에 적용되는 함수
+	- 또는 스스로 사용자 함수를 정의해서 사용 가능
+
+```
+myRdd2\
+    .flatMap(lambda x:x.split())\
+    .map(lambda x:(x,1))\
+    .groupByKey()\
+    .mapValues(sum)\
+    .take(20)
+```
+[(u'and', 1),
+ (u'\uc18c\uc2a4', 1),
+ (u'is', 1),
+ (u'Wikipedia', 1),
+ (u'AMPLab,', 1),
+ (u'maintained', 1),
+ (u'donated', 1),
+ (u'\ucef4\ud4e8\ud305', 1),
+ (u'open', 1),
+ (u'since.', 1),
+ (u'for', 1),
+ (u'\ud074\ub7ec\uc2a4\ud130', 1),
+ (u'with', 1),
+ (u'framework.', 1),
+ (u'provides', 1),
+ (u'Apache', 6),
+ (u'Spark', 7),
+ (u'was', 1),
+ (u'Originally', 1),
+ (u'which', 1)]
+```
+def f(x): return len(x)
+myRdd2\
+    .flatMap(lambda x:x.split())\
+    .map(lambda x:(x,1))\
+    .groupByKey()\
+    .mapValues(f)\
+    .sortByKey(True)\
+    .take(10)
+```
+[(u'AMPLab,', 1),
+ (u'Apache', 6),
+ (u"Berkeley's", 1),
+ (u'California,', 1),
+ (u'Foundation,', 1),
+ (u'Originally', 1),
+ (u'Software', 1),
+ (u'Spark', 7),
+ (u'University', 1),
+ (u'Wikipedia', 1)]
+
+- reduceByKey()는 groupByKey()와 달리 키별로 빈도를 합산하기 때문에 mapValues()가 필요 X
+- reduce()는 함수를 사용해서 인자를 2개 받아서 1개로 병합하는 기능을 수행
+- reduceByKey()은 (K, V) 쌍으로 병합해서 (K, V)를 반환한다는 점에 유의
+
+```
+myRdd2\
+    .flatMap(lambda x:x.split())\
+    .map(lambda x:(x,1))\
+    .reduceByKey(lambda x,y:x+y)\
+    .take(10)
+```
+[(u'and', 1),
+ (u'\uc18c\uc2a4', 1),
+ (u'is', 1),
+ (u'Wikipedia', 1),
+ (u'AMPLab,', 1),
+ (u'maintained', 1),
+ (u'donated', 1),
+ (u'\ucef4\ud4e8\ud305', 1),
+ (u'open', 1),
+ (u'since.', 1)]
+
+### countByKey
+- countByKey()는 Key별로 계산을 하는 action 함수
+- 결과는 dictionary로 출력
+	- ex) defaultdict(int,
+						{key : a, ... })
+- coutByKey().items()하면 리스트로 변환
+- countByKey()는 dictionary로 병합하는 반면, reduceByKey()는 (K,V)로 계산
+
+```
+myRdd2\
+    .flatMap(lambda x:x.split())\
+    .map(lambda x:(x,1))\
+    .countByKey() # .items() to be added to get a list
+```
+defaultdict(int,
+            {'Wikipedia': 1,
+             'Apache': 6,
+             'Spark': 7,
+             'is': 1,
+             'an': 2,
+             'open': 1,
+             'source': 1,
+             'cluster': 1,
+             'computing': 1,
+             'framework.': 1,
+             '아파치': 5,
+             '스파크는': 1,
+             '오픈': 1,
+             '소스': 1,
+             '클러스터': 1,
+             '컴퓨팅': 1,
+             '프레임워크이다.': 1,
+             '스파크': 4,
+             'Originally': 1,
+             'developed': 1,
+             'at': 1,
+             'the': 3,
+             'University': 1,
+             'of': 1,
+             'California,': 1,
+             "Berkeley's": 1,
+             'AMPLab,': 1,
+             'codebase': 1,
+             'was': 1,
+             'later': 1,
+             'donated': 1,
+             'to': 1,
+             'Software': 1,
+             'Foundation,': 1,
+             'which': 1,
+             'has': 1,
+             'maintained': 1,
+             'it': 1,
+             'since.': 1,
+             'provides': 1,
+             'interface': 1,
+             'for': 1,
+             'programming': 1,
+             'entire': 1,
+             'clusters': 1,
+             'with': 1,
+             'implicit': 1,
+             'data': 1,
+             'parallelism': 1,
+             'and': 1,
+             'fault-tolerance.': 1})
+
+### 단어빈도로 그래프 그리기
+- x축은 barh()로 개수를 나타내고 y축은 단어를 나타냄.
+```
+% matplotlib inline
+import matplotlib.pyplot as plt
+
+count = map(lambda x: x[0], wc3)
+word = map(lambda x: x[1], wc3)
+plt.barh(range(len(count)), count, color = 'grey')
+plt.yticks(range(len(count)), word)
+plt.show()
+```
+(그래프그림)
+
+### combineByKey 
+![image](https://user-images.githubusercontent.com/47033052/65942106-8d021880-e467-11e9-87a7-f6ad784dae93.png)
+
+#### combineByKey 예제
+![image](https://user-images.githubusercontent.com/47033052/65942425-3cd78600-e468-11e9-8aa5-6dd3b7f40117.png)
+
+
+![image](https://user-images.githubusercontent.com/47033052/65942367-1f0a2100-e468-11e9-9467-d884d32c05a1.png)
+
+```
+marks = spark.sparkContext.parallelize([('kim',86),('lim',87),('kim',75),
+                                      ('kim',91),('lim',78),('lim',92),
+                                      ('lim',79),('lee',99)])
+marksByKey = marks.combineByKey(lambda value: (value,1),
+                             lambda x,value: (x[0]+value, x[1]+1),
+                             lambda x,y: (x[0]+y[0], x[1]+y[1]))
+marksByKey.collect()
+```
+[('kim', (252, 3)), ('lim', (336, 4)), ('lee', (99, 1))]
+
+```
+heights = spark.sparkContext.parallelize([
+        ('M',182.),('F',164.),('M',180.),('M',185.),('M',171.),('F',162.)
+    ])
+heightsByKey = heights.combineByKey(lambda value: (value,1),
+                             lambda x,value: (x[0]+value, x[1]+1),
+                             lambda x,y: (x[0]+y[0], x[1]+y[1]))
+heightsByKey.collect()
+```
+[('M', (718.0, 4)), ('F', (326.0, 2))] // 합, 카운트
+```
+avgByKey = heightsByKey.map(lambda (label,(valSum,count)):
+                                (label,valSum/count))
+
+print avgByKey.collectAsMap()
+```
 
