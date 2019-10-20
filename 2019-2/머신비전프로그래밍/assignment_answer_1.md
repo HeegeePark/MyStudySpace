@@ -1,4 +1,4 @@
-#ch2 - ch4 과제 정리
+# ch2 - ch4 과제 정리
 
 ## ch2 Percentile stretching
 ### 방법 1 : 직접 상한, 하한 화소값 탐색하기
