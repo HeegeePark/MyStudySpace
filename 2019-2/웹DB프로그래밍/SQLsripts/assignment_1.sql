@@ -83,7 +83,7 @@ SELECT E.ENAME AS '직원이름', M.ENAME AS '직속상사 이름'
 # 2 - (4) 이름 및 부서명 조회 (모든 부서 조회)
 SELECT E.ENAME AS '직원이름', D.DNAME AS '부서'
 	FROM empTBL E
-    INNER JOIN deptTBL D
+    RIGHT OUTER JOIN deptTBL D
     ON E.DEPTNO = D.DEPTNO;
     
 # 2 - (5) 부서번호가 3인 직원들의 이름, 직급, 부서번호, 부서위치 조회
