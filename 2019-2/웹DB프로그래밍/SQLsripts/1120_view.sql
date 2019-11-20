@@ -59,4 +59,5 @@ alter view v_over177
     
 insert into v_over177
 	values('KBM', '김병만', 1977, '경기', '010', '55555555', 158, '2019-01-01');
+    
 	
