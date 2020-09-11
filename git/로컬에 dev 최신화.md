@@ -14,4 +14,4 @@
 
 - upstream으로 저장된 레포지토리의 dev 브랜치에 반영된 커밋 내역을 내 로컬 개발물에 병합한다.
 
-`git merge upsteam/dev`
+`git merge upstream/dev`
