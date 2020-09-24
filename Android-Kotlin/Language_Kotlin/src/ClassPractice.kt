@@ -1,4 +1,4 @@
-// 주 생성자 선언(constructor써도 되고 안써도 되고(like 함수 파라미))
+// 주 생성자 선언(constructor써도 되고 안써도 되고(like 함수 파라미터))
 //class Human constructor(val name: String = "Anonymous"){
 open class Human(val name: String = "Anonymous"){
     // 부 생성자
@@ -8,7 +8,7 @@ open class Human(val name: String = "Anonymous"){
     }
 
     // 주 생성자의 일부이므로, 객체 생성과 동시에 같이 실행(생성 시 바로 실행)
-    // 부 생성자를 쓰더라도 init을 제일 먼저 실
+    // 부 생성자를 쓰더라도 init을 제일 먼저 실행
     init {
         println("init")
     }
@@ -27,17 +27,18 @@ class Korean: Human() {
     override fun singASong() {
         super.singASong()
         println("얼씨구나")
-    }
+   }
 
 }
 
 fun main() {
     // 객체 생성
     val human = Human("heegee")
-    val stranger = Human()      // 생성자에 default값이 선언되어있어서, 객체 생성할 때 파라미터를 안넘겨줘도 에러X행
+    val stranger = Human()      // 생성자에 default값이 선언되어있어서, 객체 생성할 때 파라미터를 안넘겨줘도 에러X
     val mom = Human("ays",52)
 
     human.eatingCake()
 
     val korean = Korean()
+    println(korean.singASong())
 }
