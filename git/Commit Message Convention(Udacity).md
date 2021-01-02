@@ -8,7 +8,9 @@
 
 ```markdown
 <type>: <subject>
+
 <body>
+
 <footer>
 ```
 
