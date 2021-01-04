@@ -54,16 +54,17 @@ let heegee: PersonB = PersonB(name: "heegee", age: 24, nickName: "희지")
 class PersonC {
   var name: String
   var age: Int
-  var nickName: String
+  var nickName: String?		// 프로퍼티 값이 꼭 필요하지 않은 경우
   
-  // 이니셜라이저 
-  init(name: String, age: Int, nickName: String) {
-    self.name = name
-    self.age = age
-    self.nickName = nickName
-  }
+//  // 이니셜라이저 
+//  init(name: String, age: Int, nickName: String) {
+//    self.name = name
+//    self.age = age
+//   self.nickName = nickName
+//  }
   
   // 위와 동일한 기능 수행
+  // 자신의 init을 호출할 때는 편의 이니셜라이저 사용할 것
   convenience init(name: String, age: Int, nickName: String) {
     init(name: name, age: age)
     self.nickName = nickName
@@ -84,7 +85,7 @@ let taesu: PersonC = PersonC(name: "taesu", age: 27, nickName: "태수")
 ``` swift
 class Puppy {
   var name: String
-  var owner: PersonC!
+  var owner: PersonC!		// init에서 전달은 안하지만, 프로퍼티 값이 꼭 필요한 경우 (nil X)
   
   init(name: String) {
     self.name = name
@@ -99,9 +100,10 @@ let happy: Puppy = Puppy(name: "taesu")
 
 // 강아지는 주인없이 산책하면 안돼요!
 // happy.goOut()	// 주인이 없는 상태라 오류 발생
+
+// 암시적 추출 때문에 주인을 할당해 주어야 산책 가능 
 happy.owner = heegee
-happy.goOut()
-// taesu가 주인 heegee와 산책을 합니다.
+happy.goOut()		// taesu가 주인 heegee와 산책을 합니다.
 ```
 
 
@@ -119,12 +121,13 @@ class PersonD {
   var age: Int
   var nickName: String?
   
+  // 원하는 값의 범위가 아닐 시 nil 반환
   init?(name: String, age: Int) {
     if(0...120).contains(age) == false {
       return nil
     }
     
-    if name.characters.count == 0 {
+    if name.count == 0 {
       return nil
     }
     
