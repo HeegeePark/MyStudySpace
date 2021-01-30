@@ -1,0 +1,72 @@
+# ViewController Life Cycle
+
+## 1. UIViewController 주요 역할
+
+- 데이터 변경에 따른 UI(View)의 컨텐츠 업데이트
+- 뷰에 들어오는 사용자 인터랙션에 응답
+- 뷰와 관련된 모든 레이아웃 관리
+- 앱에서 사용되는 여러 객체(다른 ViewController)들이랑 협력하에 있음.
+
+## 2. View의 상태에 따른 메소드
+
+<img src ="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F5eLhR%2FbtqRoRMzFcR%2FbL9VBB7Inj7n3je1xpiRxk%2Fimg.png" width="50%" />
+
+View가 보여지는 상태에 따라서, 뷰컨트롤러는 그에 해당하는 메소드를 호출.
+
+### 애플 문서가 정의한 뷰 상태 4가지 
+
+- `Appearing`: 화면에 뷰가 보여지기 직전
+- `Appeared`: 화면에 뷰가 보여진 상태
+- `Disappearing`: 화면에서 뷰가 사라지기 직전
+- `Disappeared`: 화면에서 뷰가 사라진 상태
+
+### ViewController LifeCycle
+
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbPeVnO%2FbtqRx0HIXh0%2FvaZTiLFkRvn7ueYYTZpauK%2Fimg.png" width="50%" />
+
+- 뷰컨트롤러를 좀 더 파보면 객체 생성, 메모리 적재 등의 상태에 따라 호출되는 함수들도 더 있음.
+
+### `viewDidload`
+
+- 뷰컨트롤러의 뷰들이 메모리에 로드가 완료가 되었을 때 호출
+- 뷰가 로드되는 방식은 여러 방식이 있음 (스토리보드, nib 파일을 통해서, 혹은 프로그래밍 방식으로 `loadView()` 통해서도 가능)
+- 뷰컨트롤러 뷰 혹은 그외 객체에서 초기 세팅이 필요한 경우 이곳 사용
+- 바운드가 정의되고, 회전이 일어나기 전에 이 메소드가 호출되기 때문에, 여기서 뷰크기를 작업하는 것은 아주 위험함.
+- 오버라이딩 해서 사용할때는 꼭 `super` 호출할 것
+
+### `viewWillAppear`
+
+- 뷰컨트롤러의 뷰가 화면에 보여지기 직전에 호출
+- 뷰의 계층, `frames`, `bounds`가 모두 세팅 되었다고 생각하면 됨
+- 이 메소드에서는 뷰를 보여주는 작업 중, 커스텀하게 가져갈 것이 있으면 이곳에서.
+  - Ex: 오리엔테이션 작업 혹은 `statusbar` 상태 변경
+- 기억할 것은 **뷰가 화면에 보여지려는 시점마다 호출**되는 것을 알기
+- 오버라이딩 해서 사용할때는 꼭 `super` 호출할 것
+
+### `viewDidAppear`
+
+- 뷰컨트롤러의 뷰가 화면에 보여지기 직후에 호출
+- 여기서 애니메이션 시작, 미디어 재생, 네트워크에 의한 데이터 수집 등을 시작하면 좋은 장소
+- 오버라이딩 해서 사용할때는 꼭 `super` 호출할 것
+
+### `viewWillDisappear`
+
+- 뷰들이 아직 뷰 계층구조에 있지만 곧 지워질 예정일 때 호출
+- 여기서는 아직 완료가 되지 않은, 사용자 데이터를 저장하고, 네트워크 작업을 캔슬하기 좋은 곳
+  - Ex: 타이머 조절, 키보드 숨기기
+- 오버라이딩 해서 사용할때는 꼭 `super` 호출할 것
+
+### `viewDidDisappear`
+
+- 뷰 계층구조에서 뷰가 지워지고 호출됨.
+- 여기서는 뷰가 완전히 사라진 상태
+- 알림 또는 디바이스 센서 수신 중지할 때 좋은 장소
+- 오버라이딩 해서 사용할때는 꼭 `super` 호출할 것
+
+
+
+## References
+
+https://developer.apple.com/documentation/uikit/uiviewcontroller
+
+https://medium.com/good-morning-swift/ios-view-controller-life-cycle-2a0f02e74ff5
