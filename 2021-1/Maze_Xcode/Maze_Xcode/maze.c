@@ -112,7 +112,7 @@ void maze_print(int maze[MAZE_SIZE][MAZE_SIZE])
 // tmp 좌표 위치 반환
 void get_tmp_loc(element *tmp, int r, int c) {
     element temp;
-    if (r < 0 || c < 0) return;
+    if (r < 0 || c < 0 || r > MAZE_SIZE || c > MAZE_SIZE) return;
     temp.r = r;
     temp.c = c;
     
