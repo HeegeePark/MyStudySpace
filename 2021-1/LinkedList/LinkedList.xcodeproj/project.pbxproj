@@ -25,8 +25,6 @@
 /* Begin PBXFileReference section */
 		4F1EFCD8262012E000B4EEBC /* LinkedList */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LinkedList; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F75E94D262017C400040753 /* linkedList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = linkedList.cpp; sourceTree = "<group>"; };
-		4F75E9522620341200040753 /* data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
-		4F75E9542620346600040753 /* data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +41,6 @@
 		4F1EFCCF262012E000B4EEBC = {
 			isa = PBXGroup;
 			children = (
-				4F75E9522620341200040753 /* data.txt */,
 				4F1EFCDA262012E000B4EEBC /* LinkedList */,
 				4F1EFCD9262012E000B4EEBC /* Products */,
 			);
@@ -60,7 +57,6 @@
 		4F1EFCDA262012E000B4EEBC /* LinkedList */ = {
 			isa = PBXGroup;
 			children = (
-				4F75E9542620346600040753 /* data.txt */,
 				4F75E94D262017C400040753 /* linkedList.cpp */,
 			);
 			path = LinkedList;

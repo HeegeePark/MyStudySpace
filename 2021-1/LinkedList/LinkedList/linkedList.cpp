@@ -29,9 +29,6 @@ void insert_node(ListNode* head, char* key) {
     int cmp;
     ListNode* prev, * ptr;
 // 아래를 완성하시오
-    // 단어를 사전적 구조인 오름차순으로 정렬
-    // - 1. 리스트 순차 탐색 중 맞는 위치에 노드 삽입
-    // - 2. 동일한 단어의 발생 횟수를 저장 (처음: 1, else: count++)
     prev = head;
     ptr = head -> link;
     while (ptr != NULL) {
@@ -50,6 +47,18 @@ void insert_node(ListNode* head, char* key) {
         else
             break;
     }
+    // 새로운 노드 삽입
+    ListNode* new_node;
+    new_node = (ListNode*)malloc(sizeof(ListNode));
+    strcpy(new_node -> data.word, key);
+    new_node -> data.count = 1;
+    new_node -> link = prev -> link;
+    prev -> link = new_node;
+    ptr = head -> link;
+//    while (ptr) {
+//        printf("%s ", ptr->data.word);
+//        ptr = ptr->link;
+//    }
 }
 // 헤더 노드를 이용한 삭제 함수
 void delete_node(ListNode* head, char* key)
