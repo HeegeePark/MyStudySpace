@@ -54,7 +54,6 @@ void insert_node(ListNode* head, char* key) {
     new_node -> data.count = 1;
     new_node -> link = prev -> link;
     prev -> link = new_node;
-    ptr = head -> link;
 }
 // 헤더 노드를 이용한 삭제 함수
 void delete_node(ListNode* head, char* key)
