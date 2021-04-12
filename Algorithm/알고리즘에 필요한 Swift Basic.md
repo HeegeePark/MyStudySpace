@@ -137,3 +137,202 @@ string.replacingOccurences(of: " ", with: "+")
 ``` swift
 print("이렇게 \' 써준다.")	// 결과 : 이렇게 ' 써준다.
 ```
+
+
+
+## 비트 연산
+
+1. NOT : ~value //00001111 -> 11110000으로 0과 1를 바꿔준다
+2. AND : first & second // 두개 자릿수가 둘다 1일 때 1 리턴
+3. OR : first | second // 둘 중 하나라도 자릿수가 1이면 1 리턴
+4. XOR : first ^ second // 두 자릿수가 다르면 1, 같으면 0 리턴
+5. Left Shift : value << n // n만큼 왼쪽으로 이동하고 빈자리는 0으로
+6. Right Shift : value >> n // n만큼 오른쪽으로 이동하고 빈자리는 0으로 
+7. 3항 연산자 : 조건문 ? 참 : 거짓 // a < b ? a : b 중첩도 가능
+
+
+
+## 앱 종료
+
+``` swift
+exit(0)
+```
+
+
+
+##  무한루프
+
+``` swift
+while true {
+  // 코드
+}
+```
+
+
+
+## do while
+
+``` swift
+repeat {
+  // 코드
+} while
+```
+
+
+
+## Swift에는 `++` 연산자가 없음!!! (마이너스 또한)
+
+## String 한 글자와 Character 형 구분할 때
+
+``` swift
+Character("a")	// 타입 명시
+```
+
+
+
+## 거듭제곱
+
+``` swift
+pow(x, 2) 	// x^2, x는 Decimal 타입
+```
+
+
+
+## Decimal -> Int
+
+``` swift
+(decimal as NSDecimalNumber).intValue
+```
+
+
+
+## 부동소수점 다루기
+
+NumberFormatter 이용
+
+- 자세한 방법 : https://twih1203.medium.com/swift5-numberformatter%EB%A1%9C-%EC%86%8C%EC%88%98%EC%A0%90-%EC%95%84%EB%9E%98-%EC%9E%90%EB%A6%BF%EC%88%98-%EB%B0%98%EC%98%AC%EB%A6%BC-%EC%97%86%EC%9D%B4-%EC%9E%90%EB%A5%B4%EA%B8%B0-ee33219e3cdd
+
+``` swift
+let formatter = NumberFormatter()
+formatter.roundingMode = .down	// 내림
+formatter.minFractionDigits = 2 // 2자릿수까지만 표현
+formatter.maxFractionDigits = 2
+let num = formatter.string(from: NSNumber(value: 2.3243254))		// 2.32 (Optional String)
+```
+
+
+
+## 타입 범위
+
+``` swift
+Int, Int64 = 2의 8승 - 1 (9223372036854775807) // 19자리
+Int32      = 2의 6승 -1  (2147483647)          // 10자리
+Float      = 소수점 6자리까지 표현 가능
+Double     = 소수점 15자리까지 표현 가능
+```
+
+
+
+## 진수 표현
+
+``` swift
+// 10진수 -> N진법
+String(integer, radix: n)
+
+// N진법 -> 10진수
+Int("11100110", radix: n)!
+```
+
+
+
+## 문자를 ASCII 코드로 변환
+
+``` swift
+Character("a").asciiValue!
+```
+
+
+
+## String에 식이 들어있을 때 그대로 계산하기
+
+``` swift
+let mathExpression = NSExpression(format: "3+4+2-1*6")
+let mathValue = mathExpression.expressionValue(with: nil, context: nil) as! Int 	// result : 3
+```
+
+
+
+## 절대값 변환
+
+``` swift
+abs(-29)	// 29
+```
+
+
+
+## for문에서 원하는 수치만큼 증가 | 감소하는 반복문 필요할 때
+
+``` swift
+stride(from: 1, to: 5, by: 2)		// open range..5 불포함 1,3 까지만
+stride(from: 1, through: 5, by: 2)		// closed range..5 포함 1,3 ,5 까지
+
+ex)
+for even in stride(from: 2, through: 100, by: 2)
+```
+
+
+
+## Dictionary 사용하기
+
+### 1. 생성
+
+``` swift
+var dic: [Int: String] = [:]
+var dic = [Int: String]()
+var dic = [1: "a", 2: "b", 3: "c"]
+```
+
+### 2. 값 수정
+
+``` swift
+dic.updateValue("c", forKey:3)
+dic[3] = "d"
+```
+
+### 3. 값 추가
+
+``` swift
+dic[4] = "5"
+dic.update("5", forKey: 4)j	// 4라는 키가 있을 경우 수정이 됨
+```
+
+### 4. 접근
+
+``` swift
+dic[4]! // Unwrapping 해줄 것
+```
+
+### 5.  for문 돌기
+
+``` swift
+for (key, value) in dic {
+  print(key)		// 1,2,3
+  print(value)		// a,b,c
+}
+// 단 순서는 뒤죽박죽임 !!! (Dictionary는 순서가 없음)
+```
+
+### 6. 값 삭제
+
+``` swift
+dic.removeValue(forKey:4) // 특정 키값 삭제
+dic.removeAll()		// 전체 삭제
+```
+
+### 7. Key를 바꿀 경우, 지우고 다시 넣어줘야 함
+
+### 8. Dictionary Key로 sort
+
+``` swift
+let sort = dic.sorted(by: { $0.key < $1.key })	// value 기준 sort 시 -> $0.value
+```
