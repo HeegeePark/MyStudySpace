@@ -140,12 +140,12 @@ integerSet.count	// 1
 
 2. Set의 활용
 // 멤버의 유일성이 보장되기 때문에 집합 연산에 활용하면 유용함.
-let setA: Set<Int> = {1,2,3,4,5}
-let setB: Set<Int> = {3,4,5,6,7}
+let setA: Set<Int> = [1,2,3,4,5]
+let setB: Set<Int> = [3,4,5,6,7]
 
 // 합집합 union
 let union: Set<Int> = setA.union(setB)
-print(union) 	// {2,4,5,6,7,3,1}
+print(union) 	// [2,4,5,6,7,3,1]
 
 // 오름차순 정렬
 // sorted 함수로 오름차순된 Array로 리턴
@@ -154,9 +154,9 @@ print(sortedUnion) 	// [1,2,3,4,5,6,7]
 
 // 교집합
 let intersection: Set<Int> = setA.intersection(setB)
-print(intersection)	// {5,3,4}
+print(intersection)	// [5,3,4]
 
 // 차집합
 let substracting: Set<Int> = setA.subStracting(setB)
-print(substracting)	// {2,1}
+print(substracting)	// [2,1]
 ```
