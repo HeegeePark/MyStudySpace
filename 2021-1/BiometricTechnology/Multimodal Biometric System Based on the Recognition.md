@@ -85,6 +85,7 @@
 
 <p align="center">
   <img src="./images_m/Untitled 0.png">
+
   그림 1. 제안된 이미지 캡처 장치
 </p>
 
@@ -105,6 +106,7 @@
 
 <p align="center">
   <img src="./images_m/Untitled 1.png">
+
   그림 2. 제안된 method의 Overview
 </p>
 
@@ -127,11 +129,13 @@
 
 <p align="center">
   <img src="./images_m/Untitled 2.png">
-	그림 3. 제안된 방법을 사용하여 감지 된 얼굴 및 눈 영역
+
+  그림 3. 제안된 방법을 사용하여 감지 된 얼굴 및 눈 영역
 </p>
 
 <p align="center">
   <img src="./images_m/Untitled 3.png">
+
   그림 4. 크기 및 조명 정규화 후 얼굴 영역
 </p>
 
@@ -162,6 +166,7 @@
 
     <p align="center">
   <img src="./images_m/Untitled 4.png">
+    
       그림 5. 감지된 홍채, 눈꺼풀 및 속눈썹 영역의 예. (a) 원본 이미지. (b) Localized regions
     </p>
     
@@ -196,6 +201,7 @@
 
 <p align="center">
   <img src="./images_m/Untitled 5.png">
+
   그림 6. 얼굴과 두 홍채를 캡처한 이미지의 예
 </p>
 
@@ -249,6 +255,7 @@
 
 <p align="center">
   <img src="./images_m/Untitled 6.png">
+
   표 1. 단일 인식 방법의 정확도 (단위 : [%])
 </p>
 
@@ -256,6 +263,7 @@
 
 <p align="center">
   <img src="./images_m/Untitled 7.png">
+
   표 2. 커널이 다른 SVM을 사용한 조합 방법의 정확도 (단위 : [%])
 </p>
 
@@ -263,6 +271,7 @@
 
 <p align="center">
   <img src="./images_m/Untitled 8.png">
+
   표 3. 기존 fusion methodfmf 사용한 EER 비교 (단위 : [%])
 </p>
 
