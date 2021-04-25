@@ -62,6 +62,7 @@
     얼굴과 홍채의 정보를 결합하여 더 높은 정확도를 보장하는 새로운 다중 모드 생체 인식 방법을 제안함.
 
 - 추가로, 그들의 실험에서 얼굴과 홍채 데이터는 같은 사람의 얼굴과 홍채임에도, 얼굴과 홍채의 **서로 다른 Open Database를 결합함으로써 획득**되었음.
+    
     - 얼굴과 홍채가 완벽하게 상관 관계가 없다는 가정에 기초
 - BUT, 이러한 가정을 확인하기 위해서는 집중적인 통계 분석이 필요
 
@@ -82,9 +83,10 @@
 
 ## 2.1. 제안된 촬영 장치
 
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled.png)
-
-그림 1. 제안된 이미지 캡처 장치
+<p align="center">
+  <img src="./images_m/Untitled 0.png">
+  그림 1. 제안된 이미지 캡처 장치
+</p>
 
 - 그림 1은 얼굴과 두 홍채의 이미지를 동시에 캡처하기 위해 제안된 장치
 - 안면 카메라, 홍채 카메라 2 개, 콜드 미러 및 근적외선 (NIR) 조명기 (파장 880nm의 36 개의 NIR 발광 다이오드 [LED] 포함)로 구성
@@ -101,9 +103,10 @@
 
 ## 2.2. 제안된 method의 Overview
 
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%201.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%201.png)
-
-그림 2. 제안된 method의 Overview
+<p align="center">
+  <img src="./images_m/Untitled 1.png">
+  그림 2. 제안된 method의 Overview
+</p>
 
 ### 얼굴 인식 프로세스
 
@@ -122,13 +125,15 @@
 
 ## 2.3. 얼굴 인식 방식
 
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%202.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%202.png)
+<p align="center">
+  <img src="./images_m/Untitled 2.png">
+	그림 3. 제안된 방법을 사용하여 감지 된 얼굴 및 눈 영역
+</p>
 
-그림 3. 제안된 방법을 사용하여 감지 된 얼굴 및 눈 영역
-
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%203.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%203.png)
-
-그림 4. 크기 및 조명 정규화 후 얼굴 영역
+<p align="center">
+  <img src="./images_m/Untitled 3.png">
+  그림 4. 크기 및 조명 정규화 후 얼굴 영역
+</p>
 
 1. AdaBoost 알고리즘을 사용하여 얼굴 영역을 감지
 2. 두 눈은 그림 3과 같이 빠른 eye detection에 의해 발견되며 감지된 얼굴 영역은 두 눈의 위치에 따라 재정의됨.
@@ -145,7 +150,9 @@
 ## 2.4. 홍채 인식 방법
 
 - 캡처 된 홍채 이미지에는 홍채, 동공, 공막, 눈꺼풀 및 속눈썹이 포함됨.
+
 - 이미지에서 홍채 영역을 분리하기 위해 두 개의 CED를 수행(Integro-differential 값은 홍채의 반경 값과 중앙 위치를 변경하면서 홍채 (및 동공)의 안쪽과 바깥 쪽 경계 사이에서 계산됨.)
+
 - 가변 줌 렌즈 대신 고정 줌 배율의 줌 렌즈를 사용
     - Z-distance 작동 범위는 25–40cm이고, 시스템 크기를 줄이고 줌 렌즈 작동시 추가 모터 사용을 피하기 위해
 
@@ -153,9 +160,12 @@
 
     - 두 개의 CED에 대한 반경 검색 범위는 다양한 직경 (180-280)의 홍채 영역을 감지하기 위해 이보다 컸고, 이는 처리 및 홍채 영역 감지 정확도 측면에서 홍채 인식 성능을 저하시킬 수 있음.
 
-    ![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%204.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%204.png)
-
-    그림 5. 감지된 홍채, 눈꺼풀 및 속눈썹 영역의 예. (a) 원본 이미지. (b) Localized regions
+    <p align="center">
+  <img src="./images_m/Untitled 4.png">
+      그림 5. 감지된 홍채, 눈꺼풀 및 속눈썹 영역의 예. (a) 원본 이미지. (b) Localized regions
+    </p>
+    
+    
 
 ### 위 문제를 극복하기 위한 방법
 
@@ -184,49 +194,86 @@
 
 # 3.  Experimental Results
 
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%205.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%205.png)
+<p align="center">
+  <img src="./images_m/Untitled 5.png">
+  그림 6. 얼굴과 두 홍채를 캡처한 이미지의 예
+</p>
 
-그림 6. 얼굴과 두 홍채를 캡처한 이미지의 예
+
 
 - 제안된 시스템의 정확도를 측정하기 위해 제안된 장치를 사용하여 Z 거리 범위가 25-40cm 인 얼굴과 두 홍채의 이미지를 획득함.
 - 지상 실측(ground-truth) Z 거리는 레이저 빔 (BOSCH DLE 70 전문 모델)을 사용하여 측정
 - 그림 6은 서로 다른 Z 거리로 캡처 한 이미지를 보여줌
+
+
+
+### 표 1 ~ 3과 그림 7과 같이 테스트 데이터베이스를 사용하여 시스템 성능을 평가
+
 - 데이터베이스에는 30 명의 총 3,450 개의 이미지 (얼굴 이미지 1,150 개, 왼쪽 홍채 이미지 1,150 개, 오른쪽 홍채 이미지 1,150 개)가 포함되어 있음.
 
 - SVM은 최적의 분류기를 결정하기 위해 훈련 데이터베이스가 필요
+    
     - 수집된 이미지의 절반(각각 1,725 개의 이미지 [얼굴 이미지 575 개, 왼쪽 홍채 이미지 575 개 및 오른쪽 홍채 이미지 575 개])이 훈련 데이터로, 나머지 이미지는 테스트 데이터로 사용됨.
+    
 - 훈련 데이터베이스
     - 얼굴 인식에 있어서는 genuine 샘플(positive 샘플) 수는 10,774개, imposter 샘플(negative 샘플) 수는 각각 154,251 개
     - 왼쪽 또는 오른쪽 홍채 인식의 경우 genuine(10,774) 샘플과 imposter(154,251) 샘플도 각각 얼굴 인식과 동일
 
-- 표 1 ~ 3과 그림 7과 같이 테스트 데이터베이스를 사용하여 시스템 성능을 평가
+    
+    
 - 표 1의 첫 번째 실험에서는 EER를 기반으로 얼굴 및 홍채 인식의 정확도를 측정
-- 홍채 인식의 정확도는 얼굴 인식의 정확도보다 약간 나음.
-    - 홍채 카메라가 가변 초점 렌즈가 아닌 고정 초점 렌즈를 사용했기 때문에 Z 거리가 25 또는 40cm 인 경우 초점이 맞지 않는 이미지가 종종 얻어져 홍채 인식 성능이 저하되기 때문
 
+- 홍채 인식의 정확도는 얼굴 인식의 정확도보다 약간 나음.
+    
+- 홍채 카메라가 가변 초점 렌즈가 아닌 고정 초점 렌즈를 사용했기 때문에 Z 거리가 25 또는 40cm 인 경우 초점이 맞지 않는 이미지가 종종 얻어져 홍채 인식 성능이 저하되기 때문
+    
+    
+    
 - 다음 실험에서는 표 2와 같이 서로 다른 유형의 SVM 커널을 사용할 때 조합 방법의 성능을 비교
+
 - 모든 경우에 세 가지 matching score를 사용하여 제안 된 방법이 가장 좋은 성능을 나타냄.
 
-- 그림 7은 얼굴, 왼쪽 홍채 및 오른쪽 홍채 인식을 위한 세 가지 일치 점수를 기반으로 한 테스트 데이터의 3D 분포
-- 그림 7은 낮은 허위 수용 및 거부 오류율로 인증 데이터와 가짜 데이터를 분리 할 수 있음을 확인합니다. 표 3은 기존 융합 방법과의 각 조합에 대한 EER를 보여줍니다. "최소"및 "최대"규칙을 사용하여 최종 점수는 각각 최소 및 최대 입력 점수를 선택하여 결정되었습니다 [5]. 표 3에서 볼 수 있듯이 우리가 제안한 방법의 정확도는 다른 융합 및 조합 방법보다 우수했습니다.
 
-- 홍채 인식의 경우, 심하게 (광학 또는 움직임) 흐려진 홍채 이미지 또는 눈꺼풀, 속눈썹, 머리카락 또는 정반사에 의해 홍채 영역이 극도로 가려지는 홍채 이미지는 제안 된 시스템의 성능에 영향을 미칠 수 있습니다. 또한 심한 오프 앵글의 홍채 이미지 (사용자가 홍채 카메라에서 멀리 떨어진 위치를 응시할 때 이미지가 캡처 됨)도 성능에 영향을 미칠 수 있습니다. 얼굴 인식의 경우 얼굴이 심하게 회전 (팬 또는 틸트)되는 얼굴 이미지와 극단적 인 표정 (놀라움, 찡그린 얼굴 등)이 시스템 성능에 영향을 미칠 수 있습니다.
 
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%206.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%206.png)
+- 그림 7은 얼굴, 왼쪽 홍채 및 오른쪽 홍채 인식을 위한 세 가지 match score 기반 테스트 데이터의 3D 분포
+- 그림 7은 낮은 false acceptance and rejection error rates로 genuine 데이터와 imposter 데이터를 분리 할 수 있음을 확인
+- 표 3은 기존 fusion method와의 각 조합에 대한 EER를 보여줌.
+    - Min-Max 규칙을 사용하여 최종 점수는 각각 최소 및 최대 입력 점수를 선택하여 결정
+    - 표 3에서 볼 수 있듯이 우리가 제안한 방법의 정확도는 다른 fusion method보다 우수함.
 
-표 1. 단일 인식 방법의 정확도 (단위 : [%])
 
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%207.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%207.png)
 
-표 2. 커널이 다른 SVM을 사용한 조합 방법의 정확도 (단위 : [%])
+- 홍채 인식의 경우, 심하게 (광학 또는 움직임) blur 홍채 이미지 또는 눈꺼풀, 속눈썹, 머리카락 또는 정반사에 의해 홍채 영역이 극도로 가려지는 홍채 이미지는 제안된 시스템의 성능에 영향을 미칠 수 있음
+- 심한 off-angle의 홍채 이미지 (사용자가 홍채 카메라에서 멀리 떨어진 위치를 응시할 때 이미지가 캡처 됨)도 성능에 영향을 미칠 수 있음.
+- 얼굴 인식의 경우, 얼굴이 심하게 회전 (pan or tilt)되는 얼굴 이미지와 극단적인 표정 (놀라움, 찡그린 얼굴 등)이 시스템 성능에 영향을 미칠 수 있음.
 
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%208.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%208.png)
+<p align="center">
+  <img src="./images_m/Untitled 6.png">
+  표 1. 단일 인식 방법의 정확도 (단위 : [%])
+</p>
 
-표 3. 기존 융합 방법을 사용한 EER 비교 (단위 : [%])
 
-![Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%209.png](Multimodal%20Biometric%20System%20Based%20on%20the%20Recogniti%20b5abf39880f449eaa55de06fc88ea798/Untitled%209.png)
 
-그림 7. 테스트 데이터베이스와 함께 RBF 커널을 사용한 SVM 분류 결과
+<p align="center">
+  <img src="./images_m/Untitled 7.png">
+  표 2. 커널이 다른 SVM을 사용한 조합 방법의 정확도 (단위 : [%])
+</p>
+
+
+
+<p align="center">
+  <img src="./images_m/Untitled 8.png">
+  표 3. 기존 fusion methodfmf 사용한 EER 비교 (단위 : [%])
+</p>
+
+
+
+<p align="center">
+  <img src="./images_m/Untitled 9.png">
+  그림 7. 테스트 데이터베이스와 함께 RBF 커널을 사용한 SVM 분류 결과
+</p>
+
+
 
 ---
 
@@ -235,4 +282,4 @@
 - SVM을 기반으로 성능을 향상시키기 위해 얼굴과 두 홍채 인식을 결합한 새로운 다중 모드 생체 인식 시스템을 제안
 - 제안된 장치는 얼굴과 두 홍채의 이미지를 동시에 캡처
 - 실험 결과는 제안된 시스템이 다른 조합 방법뿐만 아니라 개별적으로 얼굴 또는 홍채 인식보다 더 나은 성능을 발휘하는 것으로 나타남.
-- 앞으로 우리는 얼굴, 홍채 및 정맥과 같은 더 많은 양식을 결합하는 방법을 조사 할 계획
+- 앞으로 우리는 얼굴, 홍채 및 정맥과 같은 더 많은 양식을 결합하는 방법을 조사할 계획
