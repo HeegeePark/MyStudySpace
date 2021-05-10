@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #define MAX_ELEMENT 200
 
+
 typedef struct {
     int key;
 } element;
@@ -41,10 +42,10 @@ element delete_min_heap(HeapType* h) {
     
     while (child <= h->heap_size) {
         // 현재 노드의 자식노드 중 더 작은 자식노드 찾기
-        if ((child > h->heap_size) && (h->heap[child].key) > (h->heap[child + 1].key)) {
+        if ((child < h->heap_size) && (h->heap[child].key) > h->heap[child + 1].key) {
             child++;
         }
-        if (temp.key < h->heap[child].key) break;
+        if (temp.key < h->heap[child].key) { break; }
         // 한 단계 아래로 이동
         h->heap[parent] = h->heap[child];
         parent = child;
@@ -77,8 +78,9 @@ int main()
     printf("\n작은 키 %d 선택 리스트\n", sel_num);
     for (int i = 0; i < sel_num; i++)
         printf("%d ", delete_min_heap(&heap).key);
-    printf("\n");
     
+    printf("\n");
+   
     return 0;
 }
 /*예시 결과
@@ -112,6 +114,6 @@ int main()
  2188 1123 9505 6882 6752 1566 6716 337 4438 3144
 
  작은 키 10 선택 리스트
- 73 94 672 977 2503 4438 6716 6752 6882 7157
+ 73 94 105 194 278 298 337 404 672 878
  Program ended with exit code: 0
  */
