@@ -46,7 +46,6 @@ int main(void)
         //아래를 완성하시오.
         pivot = partition(list, left, right);
         if (left < right) {
-            pivot = partition(list, left, right);
             if (pivot < median_index) {
                 left = pivot + 1;
             }
