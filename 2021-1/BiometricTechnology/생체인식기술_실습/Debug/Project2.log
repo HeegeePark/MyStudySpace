@@ -1,0 +1,8 @@
+﻿  src.cpp
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(281,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(301,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(321,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(341,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(361,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(911,7): warning C4101: 'SubNum' :참조되지 않은 지역 변수입니다.
+  Project2.vcxproj -> D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\Debug\Project2.exe

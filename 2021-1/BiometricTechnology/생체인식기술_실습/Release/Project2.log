@@ -1,0 +1,13 @@
+﻿  src.cpp
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(281,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(301,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(321,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(341,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(361,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(910,7): warning C4101: 'SubNum' :참조되지 않은 지역 변수입니다.
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(980): error C4703: 초기화되지 않았을 수 있는 로컬 포인터 변수 'Image'이(가) 사용되었습니다.
+D:\이의철\Dropbox\Dropbox\2020-1학기강의\생체인식기술\Project2\src.cpp(981): error C4703: 초기화되지 않았을 수 있는 로컬 포인터 변수 'Output'이(가) 사용되었습니다.
+  All 22 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+LINK : fatal error LNK1257: 코드를 생성하지 못했습니다.

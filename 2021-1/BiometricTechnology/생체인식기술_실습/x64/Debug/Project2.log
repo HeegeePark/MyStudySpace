@@ -1,0 +1,7 @@
+﻿  src.cpp
+C:\Users\bbro\Desktop\Project2 (1)\src.cpp(281,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\bbro\Desktop\Project2 (1)\src.cpp(301,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\bbro\Desktop\Project2 (1)\src.cpp(321,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\bbro\Desktop\Project2 (1)\src.cpp(341,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\bbro\Desktop\Project2 (1)\src.cpp(361,43): warning C4244: '=': 'long'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Project2.vcxproj -> C:\Users\bbro\Desktop\Project2 (1)\x64\Debug\Project2.exe
