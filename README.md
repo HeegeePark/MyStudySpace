@@ -1,2 +1,3 @@
 # MyStudySpace
-매일은 아니지만, 노력하고 있습니다...!
+요즘은 깃블로그에 기록중입니다.
+▶️ [바로가기](https://heegeepark.github.io/)
