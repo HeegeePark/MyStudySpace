@@ -36,6 +36,16 @@ let nums = readLine()!.components(separatedBy: " ")		// ["1", "2", "3", "4"]
      - 바로 String으로 쓸 수가 없음
      - 그래도 map하면 되니까 백준 풀 때는 import 없는 split 선호
 
+
+
+## 줄바꿈 없이 print()
+
+``` swift
+print(data, terminatior: "")
+```
+
+
+
 ## 배열(Array) 다루기
 
 - 알고리즘 풀 때 배열 다룰 일 매우 매니매니
