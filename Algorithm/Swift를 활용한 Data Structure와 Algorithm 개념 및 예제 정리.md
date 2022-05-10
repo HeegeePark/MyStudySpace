@@ -526,3 +526,197 @@ func binarySearch(_ array: [Int], _ start: Int, _ end: Int, _ value: Int) -> Boo
 - BOJ 1637 - 날카로운 눈 (고난이도)
 ```
 
+### 25. 기본 자료구조(Basic Data-Structure)
+
+```
+1. 자료를 저장한느 구조
+2. Stack, Queue, Tree, Graph ...
+3. 특정 목적에 따라 자료를 저장하는 방법이 달라 목적(각 장단점에 의거)에 맞게 사용할 수 있어야 함
+4. 저장되어 있는 자료구조를 바탕으로 의미있는 결괄르 도출하는 과정이 알고리즘
+5. 가장 기본이 되는 자료구조: 변수, 배열
+```
+
+### 25.1. 배열 VS 연결 리스트
+
+| -                | 배열(Array / ArrayList) | 연결 리스트(Linked List)          |
+| ---------------- | ----------------------- | --------------------------------- |
+| 장점             | 탐색이 빠름             | 배열에 비해 삽입/삭제 연산이 빠름 |
+| 단점             | 삽입/삭제 연산이 느림   | 배열에 비해 탐색이 느림           |
+| 탐색 시간 복잡도 | O(1)                    | O(N)                              |
+| 삽입 시간 복잡도 | 평균적으로 O(N)         | 평균적으로 O(1)                   |
+| 삭제 시간 복잡도 | 평균적으로 O(N)         | 평균적으로 O(1)                   |
+
+### 25.2. 캡술화(Encapsulation)
+
+```
+1. 자료구조 구현의 핵심
+2. 자료구조를 사용하는 사람은 자료구조가 어떻게 동작하는지 알 필요가 없음
+3. 구현한 사람외에 사용하는 사람은 사용법만 알아야 함
+```
+
+### 25.3. 구조체(Struct)
+
+```
+1. 캡슐화를 통해 구현하며, 캡슐화를 구현하기 위해 사용
+2. 하나의 자료형(Type)을 정의할 수 있음
+3. 여러 프로퍼티와 메소드로 이루어져 있어, 관련된 데이터끼리 묶을 수 있음
+```
+
+### 26. 스택(Stack)
+
+```
+1. Computer Science의 대표적인 자료구조 중 하나
+2. Linear(선형) 자료구조
+3. 자료를 쌓으면서 저장하는 자료구조
+4. LIFO 특징을 가지고 있어, 순서를 뒤집거나 발자취를 기록할 때 사용 가능
+5. Push/Pop 연산 가능
+6. Stack Overflow: Stack은 정해진 크기가 있어, 용량이 다 찼음에도 불구하고 데이터를 삽입할 경우 Stack Overflow 발생
+7. Stack Underflow: Stack이 비었음에도 불구하고 데이터를 삭제하려고 하는 경우
+```
+
+``` swift
+struct Stack {
+	// Property
+  var array: [Int]
+  var len: Int
+  var capacity: Int
+  
+  // Initializer
+  init(_ capacity: Int) {
+    self.capacity = capacity
+    self.array = Array(repeating: 0, count: capacity)
+    self.len = 0
+  }
+  
+  // Method
+  mutating func push(_ data: Int) {
+    if len >= capacity {
+      print("Overflow")
+    } else {
+      self.array[self.len] = data
+      self.len += 1
+    }
+  }
+  
+  mutating func pop() {
+    if self.len <= 0 {
+      print("Underflow")
+    } else {
+      self.array[self.len - 1] = 0
+      self.len -= 1
+    }
+  }
+  
+  func top() -> Int {
+    return self.len <= 0 ? -1: self.array[len - 1]
+  }
+}
+```
+
+### 27. 큐(Queue)
+
+```
+1. Stack과 함께 Computer Science 기초 자료구조 중 하나
+2. FIFO 구조
+3. Linear(선형) 자료구조
+4. Queue Overflow: Queue의 용량보다 데이터를 더 넣으려고 하는 경우
+5. Queue Underflow: Queue에 데이터가 없는데 데이터를 삭제하려고 하는 경우
+6. 단순 투 포인터로 큐를 구현하게 되는 경우 push/pop 연산 시 두 포인터가 모두 증가만 하게 되므로,
+앞의 공간에 대한 낭비가 발생할 수 있음
+```
+
+### 27.1. 원형 큐의 개념과 구현 방법(Circular Queue)
+
+```
+1. 선형 큐의 공간 낭비의 단점을 해결하기 위한 큐
+2. 선형 큐에 비해 공간 활용 능력이 우수
+3. 원소의 개수를 유지하는 별도의 변수가 필요
+4. front, rear 투 포인터가 끝에 도달하게 되면 push/pop 연산 시 다시 처음으로 되돌리는 형태
+```
+
+``` swift
+struct Queue {
+  // Property
+  private var array: [Int]
+  private var f: Int
+  private var r: Int
+  private var capacity: Int
+  
+  // Initializer
+  init(_ capacity: Int) {
+    self.capacity = capacity
+    self.array = Array(repeating: 0, count: capacity)
+    self.f = 0
+    self.r = 0
+  }
+  
+  // Method
+  mutating func push(_ data: Int) {
+    if self.r >= self.capacity {
+      print("Overflow")
+    } else {
+      self.array[self.r] = data
+      self.r += 1
+    }
+  }
+  
+  mutating func pop() {
+    if self.r - self.f <= 0 {
+      print("Underflow")
+    } else {
+      self.array[self.f] = 0
+      self.f += 1
+    }
+  }
+  
+  func front() -> Int {
+    return self.r - self.f <= 0 ? -1: self.array[self.f]
+  }
+  
+  func size() -> Int {
+    return self.r - self.f
+  }
+}
+```
+
+### 27.2. 스택 & 큐 정리(Stack & Queue Summary)
+
+```
+1. 특정 자료구조가 무엇인지 아는 것은 중요하지 안혹, 의도에 맞게 사용하는 능력이 중요
+2. 올바른 괄호 판단 문제는 대표적인 Stack 자료구조를 활용하는 문제
+3. Stack과 Queue에는 상태(status) 즉, 해야 하는 작업이 저장됨
+4. Stack의 경우, 함수 호출에 대한 복귀 주소 즉, 발자취를 기록 해두며, 이를 Call Stack이라고 함
+	(Stack의 Scheduling, 재귀호출)
+5. Queue의 경우, Stack과 달리 상태의 의존관계가 없을 때, 즉 해야 하는 작업을 진행할 때 다른 작업에 영향을 받지 않고 순서대로 처리하며, 대표적으로 스케쥴링, 병렬화에 많이 사용
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
