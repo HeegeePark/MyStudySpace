@@ -690,9 +690,216 @@ struct Queue {
 5. Queue의 경우, Stack과 달리 상태의 의존관계가 없을 때, 즉 해야 하는 작업을 진행할 때 다른 작업에 영향을 받지 않고 순서대로 처리하며, 대표적으로 스케쥴링, 병렬화에 많이 사용
 ```
 
+### 28. 트리(Tree)
 
+```
+1. 트리 역시 자료를 담는 Computer Science의 기초 자료구조 중 하나
+2. 계층형(Hierarchy) 자료구조
+3. 정점(Node), 간선(Edge)로 이루어져 있으며, 간선은 두 정점을 잇는 선
+4. 부모와 자식관계를 가지며 레벨은 높이를 뜻함
+5. 트리는 그 안에 또 트리가 존재하며(재귀적 성질), 이를 서브트리(Subtree)라고 함
+6. 최상위 부모노드를 root라고 함
+```
 
+### 28.1 트리의 순회(Tree Traversal)
 
+```
+1. 트리 내에 어떠한 자료가 담겨 있는지를 알기 위한 방법
+2. 순회하는 방법은 많지만, 재귀적 성질을 이용해서 순회하는 방법이 젤 중요함
+```
+
+### 28.1.1. 이진 트리 재귀적 순회 방법
+
+```
+1. 자식노드가 2개 이하인 트리를 Binary Tree(이진 트리)라고 함
+2. 전위 순회: Root-L(left subtree)-R(right subtree)
+3. 중위 순회: L(left subtree)-Root-R(right subtree)
+4. 후위 순회: L(left subtree)-R(right subtree)-Root
+5. 세가지 순회방법이 목적은 트리 내의 자료를 탐색하는 것으로 같지만, 특성이 다름
+```
+
+``` swift
+struct Node {
+  var left: Int
+  var right: Int
+  
+  init(_ left: Int, _ right: Int) {
+    self.left = left
+    self.right = right
+  }
+}
+
+func preOrder(_ tree: [Node], _ root: Int) {
+  if root == -1 { return }
+  
+  print("\(root) ", terminator: "")
+  preorder(tree, tree[root].left)
+  preorder(tree, tree[root].right)
+}
+
+func inOrder(_ tree: [Node], _ root: Int) {
+  if root == -1 { return }
+  
+  inOrder(tree, tree[root].left)
+  print("\(root) ", terminator: "")
+  inOrder(tree, tree[root].right)
+}
+
+func postOrder(_ tree: [Node], _ root: Int) {
+  if root == -1 { return }
+  
+  postOrder(tree, tree[root].left)
+  postOrder(tree, tree[root].right)
+  print("\(root) ", terminator: "")
+}
+```
+
+### 28.2. 우선순위 큐(Priority Queue)
+
+```
+1. Tree를 활용하는 대표적인 예제
+2. 원소를 제거할 때, 우선순위가 가장 높은 원소를 제거
+3. 배열로 우선순위 큐를 구현하게 되면, 삽입 연산은 효율적이지만 삭제 연산의 경우 비효율 적일 수 있음
+```
+
+### 28.2.1. 힙(Heap)
+
+```
+1. 부모의 값이 항상 자식보다 우선순위가 높은 완전이진트리
+2. 자식노드가 2개 이하인 이진트리 이면서, 값이 왼쪽부터 채워지는 트리를 완전이진트리라고 부름
+3. 힙에 값을 삽입하게 되면, 완전이진트리 특성에 따라 왼쪽부터 채워지고, 부모와 자식 사이의 우선순위를 비교하여 트리를 재구성해야 함
+4. 노드가 n개일 때, 높이가 대략 log n이므로 높이가 1개 증가할 때 마다 노드는 약 2배 증가하게 됨
+5. 즉, 삽입 연산 시 최악의 경우 트리의 높이 만큼 비교 연산을 수행 하므로, O(log n)의 시간 복잡도를 가짐
+6. 힙에서 삭제 연산을 하게 되면, 우선순위가 가장 높은 root를 삭제하고, 가장 끝에 있는 자식 노드를 root로 옮기고 우선순위를 비교하여 트리를 재구성해야 함
+7. 삽입 연산과 마찬가지로 root에서 최대로 트리의 높이 만큼 내려올 수 있으므로, O(log n)의 시간복잡도를 가짐
+```
+
+### 28.2.2. 우선순위 큐 구현(배열)
+
+``` swift
+struct PriorityQueue {
+  // property
+  private var data: [Int]
+  private var len, capacity: Int
+  
+  // Initializer
+  init(_ capacity: Int) {
+    self.capacity = capacity
+    self.data = Array(repeating: 0, count: capacity + 10)
+    self.len = 0
+  }
+  
+  // Method
+  mutating func push(_ x: Int) {
+    self.data[self.len] = x
+    self.len += 1
+  }
+  
+  mutating func pop() {
+    var min: Int = self.data[0], minIndex: Int = 0
+    for i in 0..<self.len {
+      if min > self.data[i] {
+        min = self.data[i]
+        minIndex = i
+      }
+    }
+    
+    for i in minIndex..<self.len {
+      self.data[i] = self.data[i + 1]
+    }
+    
+    self.len -= 1
+  }
+  
+  func top() -> Int {
+    var min: Int = self.data[0]
+    for i in 0..<self.len {
+      min = min > self.data[i] ? self.data[i]: min
+    }
+    
+    return min
+  }
+}
+```
+
+### 28.2.3. 우선순위 큐 구현(힙)
+
+```swift
+struct PriorityQueue {
+  // Property
+  var data: [Int]
+  var len, capacity: Int
+  
+  // Initializer
+  init(_ capacity: Int) {
+    self.capacity = capacity
+    self.data = Array(repeating: 0, count: self.capacity + 10)
+    self.len = 1
+  }
+  
+  mutating func push(_ x: Int) {
+    self.data[self.len] = x
+    self.len += 1
+    
+    var currentIndex: Int = self.len - 1
+    while currentIndex > 1 {
+      if self.data[currentIndex] < self.data[currentIndex >> 1] {	// 자식 < 부모
+        let temp: Int = self.data[currentIndex]
+        self.data[currentIndex] = self.data[currentIndex >> 1]
+        self.data[currentIndex >> 1] = temp
+        
+        currentIndex >>= 1
+      } else {
+        break
+      }
+    }
+  }
+  
+  mutating func pop() {
+    self.data[1] = self.data[self.len - 1]
+    self.data[self.len - 1] = 0
+    self.len -= 1
+    
+    var currentIndex: Int = 1
+    while true {
+      var childIndex: Int = -1
+      
+      if self.len - 1 < (currentIndex << 1) {
+        break
+      } else if (currentIndex << 1) < self.len && (currentIndex << 1 + 1) >= self.len {	// 왼쪽 자식 노드 == 마지막 노드
+        childIndex = currentIndex << 1
+      } else {// 왼쪽 or 오른쪽 중 누구?
+        childIndex = data[currentIndex << 1] < data[currentIndex << 1 + 1] ? (currentIndex << 1): (currentIndex << 1 + 1)
+      }
+      
+      if self.data[currentIndex] > self.data[childIndex] {
+        let temp = self.data[currentIndex]
+        self.data[currentIndex] = self.data[childIndex]
+        self.data[childIndex] = temp
+        
+        currentIndex = childIndex
+      } else { break }
+    }
+  }
+  
+  func top() -> Int {
+    return self.data[1]
+  }
+}
+```
+
+### 28.2.4. 우선순위 큐의 구현 요약
+
+| -         | 배열 | 힙       |
+| --------- | ---- | -------- |
+| 값의 삽입 | O(1) | O(log n) |
+| 값의 삭제 | O(n) | O(log n) |
+| 값의 탐색 | O(n) | O(1)     |
+
+```
+1. 삽입 연산은 배열이 빠르긴 하지만, 삭제 연산에서 차이가 많이 발생하므로, 우선순위 큐 구현은 힙이 바람직함
+2. 힙의 경우 완전이진트리이기 때문에, 배열을 이용하여 구현할 수 있음
+```
 
 
 
