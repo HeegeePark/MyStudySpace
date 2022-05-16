@@ -901,11 +901,127 @@ struct PriorityQueue {
 2. 힙의 경우 완전이진트리이기 때문에, 배열을 이용하여 구현할 수 있음
 ```
 
+### 29. 문제 해결의 절차
 
+``` 
+1. 문제를 정확히 이해한다.
+2. 문제를 해결하는 알고리즘을 설계한다.
+3. 설계한 알고리즘이 문제를 해결한다는 것을 수학적으로 증명한다.
+4. 알고리즘이 제한 시간 내에 동작한다는 것을 보인다. (시간복잡도)
+5. 알고리즘을 코드로 작성한다.
+```
 
+### 29.1. 문제 해결의 기본
 
+```
+1. 문제 해결을 위해 고려해야 하는 모든 경우를 파악해야 함.(탐색 공간)
+2. 가장 첫 번째로 시도해보아야 하는 알고리즘은 완전탐색(Brute-Force Algorithm)
+3. 완전탐색으로 시간 안에 문제 해결이 되지 않을 때는 알고리즘을 개선해 나가야 함.
+4. 시간복잡도 계산을 위해 설계한 알고리즘에 대한 의사코드를 작성해야 함.
+5. 완전탐색이 시간안에 동작하지 못할 때 개선할 수 있는 알고리즘: 이진 탐색, 분할 정복, 동적 계획법(DP), Greedy, Graph Algorithm(DFS, BFS, 최단 거리 등)
+```
 
+### 30. 분할 정복(Divide and Conquer)
 
+```
+1. 문제를 소문제로 분할
+2. 각각의 소문제를 해결
+3. 소문제의 해결 결과를 이용하여 전체 문제를 해결
+4. 합병 정렬, 퀵 정렬이 대표적인 예
+5. 분할 정복법은 소문제도 분할 정복법으로 해결하기 때문에 재귀호출과 관련이 깊음(재귀호출로 구현하는 경우 많음)
+```
+
+### 30.1. 분할 정복 예제 - 연속 부분 최대 합
+
+```swift
+// array의 start부터 end까지 연속 부분 최대 합을 반환하는 함수
+func getSubMax(_ array: [Int], _ start: Int, _ end: Int) -> Int {
+	if start >= end {
+    return array[start]
+  }
+  
+  let mid = (start + end) / 2
+  let leftSubMax = getSubMax(array, start, mid)
+  let rightSubMax = getSubMax(array, mid + 1, end)
+  
+  var leftSum = 0
+  var leftMax = -1
+  var rightSum = 0
+  var rightMax = -1
+  
+  for i in start...mid.reversed() {
+    leftSum += array[i]
+    leftMax = leftMax < leftSum ? leftSum: leftMax
+  }
+  
+  for i in mid+1...end {
+    rightSum += array[i]
+    rightMax = rightMax < rightSum ? rightSum: rightMax
+  }
+  
+  middleSubMax = leftMax + rightMax
+  
+  if leftSubMax > rightSubMax && leftSubMax > middleSubMax {
+    return leftSubMax
+  } else if rightSubMax > leftSubMax && rightSubMax > middleSubMax {
+    return rightSubMax
+  } else {
+    return middleSubMax
+  }
+}
+```
+
+### 31. 기초 동적 계획법(Basic Dynamic Programming)
+
+```
+1. 부분 문제를 해결한 결과를 이용하여 전체 문제를 해결
+2. "나"를 해결함으로써 "나"를 해결하는 구조
+3. 대표적인 예로 피보나치 수열
+4. 분할 정복법과 차이는 큰 문제를 독립적으로 나누는 것과 달리, 작은 "나"를 해결한 결과를 계속해서 사용한다는 점
+5. 따라서, 작은 소문제를 먼저 모두 기억해 놓는 것이 동적 계획법의 아이디어
+6. 분할 정복법은 Top-Down Approach, 동적 계획법은 Bottom-Up Approach
+```
+
+``` swift
+func solution() {
+  guard let n = Int(readLine() ?? "0") else { return }
+  var fibonacci = [Int](repeating: 0, count: n)
+  
+  fibonacci[0] = 0
+  fibonacci[1] = 1
+  for i in 2..<n {
+    fibonacci[i] =   fibonacci[i - 1] + fibonacci[i - 2]
+  }
+  
+  print(fibonacci)
+}
+```
+
+### 31.1. 동적 계획법의 문제 풀이 순서
+
+```
+1. 부분 문제를 정의 -> 무슨 값을 구할지를 정의
+2. 점화식을 구함 -> 그 값을 어떻게 구할지에 대한 식을 세움
+4. 문제를 해결 -> 코드 작성
+```
+
+### 32. 중급 동적 계획법(Intermediate Dynamic Programming)
+
+```
+1. [1, 2, -4, 5, 3, -2, 9, 10] 다음과 같은 수열에서 연속부분 최대합을 구하는 문제에 대해
+2. 완전탐색의 경우 O(n^2), 분할 정복법의 경우 O(n log n)의 시간복잡도로 해결 가능
+3. 동적계획법을 활용하면 이 문제를 O(n)으로 해결 가능하므로 가장 효율적
+4. 가장 빠르고, 구현도 쉽지만 구현까지 오는데 과정이 복잡하므로,
+5. 키보드에서 손을 떼고, 종이와 펜으로 설계를 정확하게 하는데 초점 맞추기
+```
+
+### 32.1. 동적 계획법 정리
+
+```
+1. 부분 문제를 정의하는 것이 가장 어려움
+2. 문제가 "재귀적으로 해결되는지"(나를 통해 나를 해결할 수 있는지)를 볼 줄 알아야 함
+3. 무조건 많은 예제를 풀어보아야 함
+```
 
 
 
