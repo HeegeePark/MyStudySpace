@@ -976,7 +976,8 @@ func getSubMax(_ array: [Int], _ start: Int, _ end: Int) -> Int {
 ```
 1. 부분 문제를 해결한 결과를 이용하여 전체 문제를 해결
 2. "나"를 해결함으로써 "나"를 해결하는 구조
-3. 대표적인 예로 피보나치 수열
+3. 대표적인 예로 피보나치 수열(피보나치를 재귀로 부를 경우 시간복잡도는 O(2^n))
+	- Each call to F(n) makes 2 additional calls, to F(n - 1) and F(n - 2). Those 2 calls will then generate 4 calls, which will generate 8, etc.
 4. 분할 정복법과 차이는 큰 문제를 독립적으로 나누는 것과 달리, 작은 "나"를 해결한 결과를 계속해서 사용한다는 점
 5. 따라서, 작은 소문제를 먼저 모두 기억해 놓는 것이 동적 계획법의 아이디어
 6. 분할 정복법은 Top-Down Approach, 동적 계획법은 Bottom-Up Approach
