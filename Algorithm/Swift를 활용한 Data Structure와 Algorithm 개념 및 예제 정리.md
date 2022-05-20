@@ -1024,6 +1024,134 @@ func solution() {
 3. 무조건 많은 예제를 풀어보아야 함
 ```
 
+### 33. 그래프(Graph)
+
+``` 
+1. Computer Science의 대표적인 자료구조 중 하나
+2. 정점(Node, Vertex)과 간선(Edge)로 이루어진 자료구조
+3. 차수(Degree): 각 정점에 연결되어 있는 간선의 개수
+4. 사이클(Cycle): 자기 자신으로 다시 돌아올 수 있는 경로
+5. 현실 세계의 많은 것들을 그래프로 나타낼 수 있기 때문에 그래프와 관련된 문제가 매우 많음
+```
+
+``` swift
+// basic vertex
+public class Vertex {
+  var key: String?
+  var neighbors: Array<Edge>
+  
+  init() {
+    self.neighbors = Array<Edge>()
+  }
+}
+
+// basic edge
+public class Edge {
+  var neighbor: Vertex
+  var weight: Int
+  
+  init() {
+    weight = 0
+    self.neighbor = Vertex()
+  }
+}
+
+// basic graph
+public class Graph {
+  private var canvas: Array<Vertex>
+  public var isDirected: Bool
+  
+  init() {
+    canvas = Array<Vertex>()
+    isDirected = true	// 방향 그래프
+  }
+  
+  // create new vertex
+  func addVertex(key: String) -> Vertex {
+    // set the key
+    var childVertex: Vertex = Vertex()
+    childVertex.key = key
+    
+    // add the vertex to the graph canvas
+    canvas.append(childVertex)
+    
+    return childVertex
+  }
+}
+
+// --- Making Connections ---
+func addEdge(source: Vertex, neighbor: Vertex, weight: Int) {
+  // create new edge
+  var newEdge = Edge()
+
+  // establish the default properties
+  newEdge.neighbor = neighbor
+  newEdge.weight = weight
+
+  source.neighbors.append(newEdge)
+
+  // check for undirected graph
+  if (isDirected == false) {
+    // create a new reversed edge
+    var reverseEdge = Edge()
+
+    // establish the reversed properties
+    reverseEdge.neighbor = source
+    reverseEdge.weight = weight
+    neighbor.neighbors.append(reverseEdge)
+  }
+}
+```
+
+### 33.1. 그래프에 관한 중요한 수학적 지식
+
+```
+1. 간선의 개수는 대략적으로 정점의 제곱보다 작거나 같음(정확히는 nC2 보다 작거나 같음)
+2. 즉, 간선의 개수 <= 정점의 개수 x (정점의 개수 - 1) / 2
+3. 차수의 합 = 간선의 개수 x 2
+```
+
+### 33.2. 그래프의 구현 1 : 인접 행렬
+
+```
+1. 정점의 연결 관계를 2차원 배열에 0, 1로 표현
+2. 그래프에서 할 수 있는 질문은 x, y가 연결돼 있는가?, x와 연결된 정점이 모두 무엇인가? 정도로 말할 수 있음
+3. 인접 행렬로 그래프를 구현했을 때 장점: 두 정점 연결 여부를 O(1)에 알 수 있음
+4. 인접 행렬로 그래프를 구현했을 때 단점: 인접한 정점을 모두 찾는데 O(n)이 걸리며, n^2의 공간이 필요함
+```
+
+```swift
+func solution(_ n: Int, _ verticies: [[Int]] ) {
+  var Graph: [[Int]] = Array(repeating: Array(repeating: 0, count: n), count: n)
+  
+  for i in 0..<n {
+    let v = verticies[i]
+    Graph[v[0]][v[1]] = 1
+    Graph[v[1]][v[0]] = 1
+  }
+}
+```
+
+### 33.3. 그래프의 구현 2 : 인접 리스트
+
+```
+1. 각각의 정점에 대하여 인접한 정점 번호를 저장함
+2. 장점: 인접한 정점을 모두 찾는 것이 O(degree), 인접 행렬보다 빠르며 필요한 만큼만 공간을 활용함
+3. 단점: x와 y 두 정점 연결 여부를 찾는 것이 O(degree)로 인접 행렬의 O(1)에 비해 느림
+```
+
+```swift
+func solution(_ n: Int, _ verticies: [[Int]] ) {
+  var Graph: [Graph] = Array(repeating: Graph(), count: n)
+  
+  for i in 0..<n {
+    let v = verticies[i]
+    Graph[v[0]].edges.append(v[1])
+    Graph[v[1]].edges.append(v[0])
+  }
+}
+```
+
 
 
 
