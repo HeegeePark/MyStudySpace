@@ -1268,7 +1268,7 @@ func dijkstra(_ N: Int, _ start: Int, _ end: Int) -> Int {
     }
     visited[minIndex] = true
     
-    for j in 0..<graph[minIndex].edges.cout {
+    for j in 0..<graph[minIndex].edges.count {
       let y = graph[minIndex].edges[j]
       let cost = graph[minIndex].costs[j]
       
