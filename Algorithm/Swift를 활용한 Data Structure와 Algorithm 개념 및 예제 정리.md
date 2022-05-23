@@ -1152,7 +1152,312 @@ func solution(_ n: Int, _ verticies: [[Int]] ) {
 }
 ```
 
+### 34. 그래프 탐색(Graph Traversal)
 
+```
+1. 그래프라는 자료구조에 어떠한 값이 저장되어 있는가?
+2. 위 질문을 알기 위해서 그래프를 순회해야 하는데, 대표적인 알고리즘으로 DFS와 BFS가 있음
+3. 트리의 Pre-Order, In-Order, Post-Order 각각의 트리를 순회한다는 목적이 같고 방법만 다른 것과 마찬가지로, DFS와 BFS의 목적은 그래프 탐색으로 같지만 그 방법이 다름
+```
+
+### 34.1. 깊이우선탐색(Depth First Search, DFS)
+
+```
+1. Stack을 이용하여 그래프를 순회하는 방법
+2. 나를 먼저 방문하고, 그 다음으로 인접한 노드를 차례로 방문. 단, 방문했던 노드는 방문하지 않음
+3. Stack을 이용하기 때문에 재귀함수로 구현할 수 있음
+4. DFS는 모든 정점을 방문하고, 하나의 정점을 두 번 이상 방문하지 않기 때문에 정확함
+5. O(노드의 개수  + 차수의 합) = O(노드의 개수 + 간선의 개수 x 2) = O(노드의 개수 + 간선의 개수) = O(V + E)의 시간복잡도를 가집
+```
+
+``` swift
+func dfs(_ x: Int) {
+  visited[x] = true
+  print("\(x) ", terminator: "")
+  
+  for i in 0..<graph[x].edges.count {
+    let y = graph[x].edges[i]
+    
+    if !visited[y] {
+      dfs(y)
+    }
+  }
+}
+```
+
+### 34.2. 너비우선탐색(Breadth First Search, BFS)
+
+```
+1. Queue를 이용하여 그래프를 순회하는 방법
+2. 깊이우선탐색과 그래프 탐색이라는 목적은 같고 방법이 다르기 때문에, 탐색하는 순서가 다름
+3. 인접한 노드들을 우선 모두 색칠해두고, 뻗어 나가는 철학을 가지고 있음
+4. 시작점을 색칠하고 큐에 넣고, 큐에서 현재 위치를 빼고 인접한 노드들을 색칠하고 큐에 넣고 위와 같은 과정을 큐가 빌 때 까지 계속해서 반복함
+5. 깊이우선과 마찬가지로 O(V + E)의 시간복잡도를 가짐
+```
+
+``` swift
+func bfs(_ start: Int) {
+  var queue: [Int] = []
+  queue.append(start)
+  visited[start] = true
+  
+  while !.queue.isEmpty {
+    let current = queue.removeFirst()
+    print("\(current) ", terminator: "")
+    
+    for i in 0..<graph[current].edges.count {
+      let next = graph[current].edges[i]
+      
+      if !visited[next] {
+        visited[next] = true
+        queue.append(next)
+      }
+    }
+  }
+}
+```
+
+### 35. 그래프 알고리즘
+
+### 35.1. 최단 경로 알고리즘(Shortest Path Finding Algorithm)
+
+```
+1. 간선의 가중치가 존재하는 그래프에서의 최단 경로를 찾는 알고리즘
+2. 간선의 가중치가 없는 그래프에서는 BFS 알고리즘으로 최단 경로를 찾을 수 있음
+3. 반면 가중치가 존재하게 되면, A에서 B까지 간선의 가중치의 합이 최소가 되는 경로가 최단 경로가 됨
+4. 위 문제를 해결하는 대표적인 3가지 알고리즘이 있음
+5. 다익스트라 알고리즘(Dijkstra's Algorithm), 플로이드 알고리즘(Floyd Algorithm), 벨만포드 알고리즘(Bellman-Ford Algorithm)
+6. 최단 경로의 특징: 정점 X까지 최단 거리로 가기 위해서는 그 직전 까지도 최단 거리로 가야하며, 그 직전까지의 최단 거리에서 직전부터 X까지의 최단 거리를 구함으로써 문제 해결 가능.
+
+```
+
+### 35.1.1. 최단 경로 알고리즘 - 다익스트라 알고리즘(Dijkstra's Algorithm)
+
+```
+1. 가중치가 존재하는 그래프에서 최단 경로를 구하는 알고리즘 중 가장 대표적인 알고리즘
+2. 가중치가 양수일 때만 가능한 알고리즘
+3. 한 정점으로부터 모든 정점까지의 최단 거리를 구할 수 있음
+4. 최단 경로는 유일하기 때문에 사이클이 없는 그래프 즉, 트리를 만들 수 있음(최단 경로 트리)
+```
+
+### 35.1.2. 다익스트라 알고리즘 구현
+
+``` 
+1. 시작점은 가중치의 합이 0 즉, 최단 경로가 0
+2. 시작점부터 현재 가중치의 합이 최소인 지점의 정점 번호를 찾고, 방문처리를 함
+3. 그 후 뻗어 나갈 수 있는 인접한 정점에 대한 가중치와 시작점에서 인접한 정점까지의 가중치의 합 중 최솟값을 각 정점에 해당하는 가중치 배열에 저장
+4. 다시 현재 방문하지 않은 정점 중에서 최솟값을 찾고 방문처리를 함
+5. 위 과정을 모든 정점에 대해 반복하면, 시작점으로부터 모든 정점의 최단 경로를 구할 수 있음
+```
+
+``` swift
+func dijkstra(_ N: Int, _ start: Int, _ end: Int) -> Int {
+  var distances = [Int](repeating: Int.max, count: N)
+  distances[start] = 0
+  
+  for _ in 0..<N {
+    var minCost, minIndex: Int
+    minCost = Int.max
+    minIndex = -1
+    
+    for j in 0..<N {
+      if !visited[j] && minCost > distance[j] {
+        minCost = distance[j]
+        minIndex = j
+      }
+    }
+    visited[minIndex] = true
+    
+    for j in 0..<graph[minIndex].edges.cout {
+      let y = graph[minIndex].edges[j]
+      let cost = graph[minIndex].costs[j]
+      
+      if distances[y] > distances[minIndex] + cost {
+        distances[y] = distances[minIndex] + cost
+      }
+    }
+  }
+}
+```
+
+### 35.2. 최소 신장 트리(Minimum Spanning Tree)
+
+```
+1. 스패닝 트리: 그래프의 모든 노드를 포함하는 (사이클이 없는 그래프)
+2. 스패닝 트리의 모든 가중치의 합을 스패닝 트리의 가중치라고 함
+3. 여러 스패닝 트리의 가중치 중 그 값이 최소가 되는 스패닝 트리를 최소 신장(스패닝) 트리라고 함.
+4. 최소 신장 트리를 구하는 알고리즘으로 대표적인 크루스칼 알고리즘(Kruskal's Algorithm)이 있음
+```
+
+### 35.2.1. 최소 신장 트리 - 크루스칼 알고리즘(Kruskal's Algorithm)
+
+```
+1. Cut Property: 최소 신장 트리를 구하기 위해서 가장 먼저 알아야 할 개념, 두 개의 Tree를 하나의 간선으로 연결할 때, 그 가중치가 가장 작은 간선으로 연결하는 것을 말함
+2. 크루스칼 알고리즘은 각 노드를 하나의 MST로 보고 시작, 간선의 가중치가 작은 것부터 결정해 나가되, 사이클이 없어야 함.
+3. 사이클이 생기는 조건은 서로 다른 트리를 잇는 것은 문제되지 않으나, 하나의 트리 내에서 하나의 간선만 추가하더라도 사이클이 생김
+4. 따라서 두 노드가 같은 트리 내에 있는지, 즉 사이클이 생기는지 여부를 판단하기 위해 Disjoint Set이라는 자료구조를 활용할 수 있음
+5. Disjoint Set은 두 정점 혹은 두 트리(그룹)을 하나의 트리(그룹)으로 묶는 작업과, 두 정점이 같은 트리(그룹)에 속하는지 여부를 알 수 있는 작업 등 두 개의 작업을 담당하는 자료구조임
+6. Disjoint Set은 트리의 부모 자식 관계를 이용하여 구현할 수 있고, 두 트리(그룹)을 하나의 트리(그룹)로 묶을 때는 각 트리(그룹)의 대표 즉, 루트 노드를 이어 붙임
+7. 그리고 두 정점이 같은 그룹인지 알고 싶을 때는 그 정점의 대표 즉, 루트 노드를 비교해봄으로써 알 수 있음
+8. 따라서 크루스칼 알고리즘을 구현하기 위해서는 간선의 가중치가 오름차순으로 정렬되어 있어야 하고, Disjoint Set 자료구조를 이용하여 사이클 여부를 판단해야 함.
+9. 한가지 Tip은 이제껏 그래프를 구현할 때 인접 행렬 혹은 인접 리스트로 구현해왔지만, 크루스칼 알고리즘의 경우는 간선에 관심이 있기 때문에 구조체로 시작점과 끝점, 그리고 가중치로 이루어진 구조체 그래프를 구현하는 것이 구현에 있어 용이함
+```
+
+``` swift
+struct Edge {
+  var p, q, cost: Int
+  
+  init(_ p: Int, _ q: Int, _ cost: Int) {
+    self.p = p
+    self.q = q
+    self.cost = cost
+  }
+}
+
+var parent = [Int]()
+
+func find(_ x: Int) -> Int {
+  if x == parent[x] {
+    return x
+  }
+  let y = find(parent[x])
+  parent[x] = y
+  
+  return y
+}
+
+func unionFind(_ p: Int, _ q: Int) -> Bool {
+  let rootP = find(p)
+  let rootQ = find(q)
+  
+  if rootP == rootQ {
+    return false
+  }
+  
+  parent[rootP] = rootQ
+  return true
+}
+
+func solution(_ N: Int) {
+	var result = 0
+  var edges = [Edge]()
+  parent = [Int](repeating: 0, count: N)
+  
+  for i in 1...N {
+    parent[i] = i
+  }
+  
+  for _ in 0..<M {
+    edges.append(Edge(a, b, c))
+  }
+  
+  edges.sort { $0.cost < $1.cost }
+  
+  for edge in edges {
+    result += unionFind(edge.p, edge.q) ? edge.cost: 0
+  }
+  print(result)
+}
+```
+
+### 35.2.2. 크루스칼 알고리즘과 다익스트라 알고리즘의 차이
+
+```
+1. 다익스트라 알고리즘은 특정 노드에서 모든 노드로의 최단 거리를 위한 알고리즘이기 때문에, 결론적으로 그래프에서 최단 경로 트리를 구성하지만 시작점에 따라 그 경로가 달라질 수 있음. 따라서 무조건 최소 신장 트리를 만든다는 보장이 없음
+2. 크루스칼 알고리즘은 그래프에서 모든 노드를 잇는 스패닝 트리 중 그 가중치의 합이 최소인 트리를 구하는 것이기 때문에, A에서 B까지의 최단 거리를 보장할 수 없음. 따라서 두 알고리즘의 목적이 다름
+```
+
+### 35.3. SCC(Strongly Connected Component)
+
+```
+1. Connected Component: 무방향 그래프에서 연결되어 있는 그래프들의 그룹으로 나누는 것, DFS/BFS 즉, 그래프 순회로 Connected Component를 구할 수 있음(서로 연결되어 있는 그래프의 노드들이 누구인지, 그 그룹의 수가 몇 개인지 구할 수 있음)
+2. Strongly Connected Component, SCC: 방향 그래프에서는 연결되어 있다 하더라도, 돌아오지 못하는 경우가 있을 수 있으므로 같은 그룹의 노드라면 오고갈 수 있는 경로가 있는 그룹끼리 나누는 것을 SCC라고 함
+3. 위 SCC를 구하는(오고갈 수 잇는 경로가 항상 존재하는 서로 연결되어 있는 그래프의 노드들이 누구인지, 그 그룹이 몇 개인지 구하는) 대표적인 알고리즘이 코사라주 알고리즘
+```
+
+### 35.3.1. SCC - 코사라주 알고리즘(Kosaraju's Algorithm)
+
+```
+1. 코사라주 알고리즘을 구현하기 앞서 메타 그래프에 대해 알아야 하는데, 현재 SCC를 안다고 할 때 SCC끼리 하나의 노드로 보는 그래프. 즉, Cycle이 없음
+2. 따라서 메타 그래프에 대해 DFS 알고리즘을 2번 적용하게 되는데, 처음 DFS를 적용하면서 빠져나오는 노드의 번호를 차례로 저장하고
+3. 위 과정을거치고 난 후, 초기 그래프의 간선의 방향을 모두 바꾸게 되면 가장 나중에 빠져나온 노드 즉, 로트 노드가 속한 그룹이 메타 그래프의 단말 노드가 되는 것을 알 수 있음
+4. 따라서 가장 나중에 빠져 나오는 노드 즉, 단말 노드이기 때문에 더 이상 내려갈 곳이 없으므로 그 노드부터 DFS를 한번 더 적용하기 위해서 간선의 방향이 반대인 그래프를 따로 저장할 필요가 있음
+5. 간선의 방향이 반대인 그래프에 대해 가장 나중에 빠져 나온 단말 노드부터 다시 한번 DFS를 적용하게 되면, SCC를 구할 수 있음(서로 오고갈 수 있는 경로가 존재하는 노드들끼리 이루어진 그래프와, 그 개수)
+6. 따라서 코사라주 알고리즘은 DFS를 2번 적용한 알고리즘으로 O(V + E) 시간복잡도를 가짐
+```
+
+``` swift
+struct Graph {
+  var edges: [Int]
+  
+  init() {
+    self.edges = []
+  }
+}
+
+var graph: [Graph] = [], reverseGraph: [Graph] = []
+var visited: [Bool] = []
+var orders: [Int] = [], groups: [Int] = []
+var orderCount: Int = 0, groupCount: Int = 0
+
+func graphDFS(_ x: Int) {
+  visited[x] =true
+  
+  for i in 0..<graph[x].edges.count {
+    let y = graph[x].edges.[i]
+    
+    if !visited[y] {
+      graphDFS(y)
+    }
+  }
+  
+  orders[orderCount] = x
+  orderCount += 1
+}
+
+func reverseGraphDFS(_ x: Int) {
+  visited[x] = true
+  groups[x] = groupCount
+  
+  for i in 0..<reverseGraph[x].edges.count {
+    let y = reverseGraph[x].edges[i]
+    
+    if !visited[y] {
+      reverseGraphDFS(y)
+    }
+  }
+}
+
+func solution() {
+  graph = Array(repeating: Graph(), count: N)
+  reverseGraph = Array(repeating: Graph(), count: N)
+  visited = [Bool](repeating: false, count: n)
+  orders = [Int](repeating: 0, count: n)
+  groups = [Int](repeating: 0, count: n)
+  
+  for _ in 0..<M {
+    graph[a].edges.append(b)
+    reverseGraph[b].edges.append(a)
+  }
+  
+  for i in 0..<N {
+    if !visited[i] {
+      graphDFS(i)
+    }
+  }
+  
+  visited = Array(repeating: false, count: N)
+  
+  for i in 0..<orderCount.reversed() {
+    if !visited(orders[i]) {
+      reverseGraphDFS(orders[i])
+      groupCount += 1
+    }
+  }
+  
+  print(groupCount)
+}
+```
 
 
 
