@@ -1201,7 +1201,7 @@ func bfs(_ start: Int) {
   queue.append(start)
   visited[start] = true
   
-  while !.queue.isEmpty {
+  while !queue.isEmpty {
     let current = queue.removeFirst()
     print("\(current) ", terminator: "")
     
