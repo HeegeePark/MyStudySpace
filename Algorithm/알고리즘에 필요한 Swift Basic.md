@@ -313,7 +313,7 @@ dic[3] = "d"
 
 ``` swift
 dic[4] = "5"
-dic.update("5", forKey: 4)j	// 4라는 키가 있을 경우 수정이 됨
+dic.update("5", forKey: 4)	// 4라는 키가 있을 경우 수정이 됨
 ```
 
 ### 4. 접근
