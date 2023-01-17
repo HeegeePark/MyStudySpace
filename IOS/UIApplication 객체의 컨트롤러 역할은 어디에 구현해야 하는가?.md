@@ -27,3 +27,9 @@ UIApplication객체는 앱이 실행될 때, Main Run Loop를 실행하고, 이 
 - 사용자가 디바이스에서 특정 액션은 취하면, 그 액션에 해당하는 이벤트가 시스템에 의해 생성되어 UIKit에서 생성한 port를 통해 앱에 전달된다. 전달된 이벤트들은 queue에 보관되고 하나씩 Main Run Loop로 전달되어 처리한다.
 
 ![image](https://user-images.githubusercontent.com/47033052/212795768-43a7ea52-48a5-4299-8f9f-97d18657573c.png)
+
+
+
+참고자료
+
+> https://jinshine.github.io/2018/05/28/iOS/%EC%95%B1%EC%9D%98%20%EC%83%9D%EB%AA%85%EC%A3%BC%EA%B8%B0(App%20Life%20Cycle)%EC%99%80%20%EC%95%B1%EC%9D%98%20%EA%B5%AC%EC%A1%B0(App%20Structure)/
