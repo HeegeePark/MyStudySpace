@@ -32,5 +32,5 @@ class UIView: UIResponder
 
 3. Laying out Subviews
 
-View는 하나 이상의 subview를 가질 수 있고 superview는 한개만 있다 subview는 배열로 관리하며 마지막에 추가된 subview가 가장 위에 표시된다.
+​	View는 하나 이상의 subview를 가질 수 있고 superview는 한개만 있다 subview는 배열로 관리하며 마지막에 추가된 subview가 가장 위에 표시된다.
 

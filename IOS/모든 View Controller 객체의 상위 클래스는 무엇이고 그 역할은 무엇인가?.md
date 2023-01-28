@@ -4,7 +4,7 @@
 
 UIKit 앱의 뷰 계층 구조를 관리하는 객체
 
-```
+```swift
 class UIViewController: UIResponder
 ```
 
