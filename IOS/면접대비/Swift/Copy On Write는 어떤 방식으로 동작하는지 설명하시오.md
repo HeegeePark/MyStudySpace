@@ -6,3 +6,7 @@ Copy On Write는 A라는 변수에 B라는 변수를 할당해주었을 때, 새
 -  Swift에서 기본적으로 COW가 구현되어 있는 타입은 Standard Library의 가변 길이를 가진 컬렉션 프로토콜을 준수하는 타입인 Array, Dictionary, Set, String 등
   (공식문서에 명시되어 있지 않은 컬렉션 타입들도, COW의 목적에 비춰볼때 구현되어 있다고 생각함이 타당한듯)
 - Struct는 기본적으로 COW 동작이 구현되어 있지 않아서, 필요하다면 커스텀하게 구현해 주어야 한다.
+
+참조
+
+https://forestjae.tistory.com/30
