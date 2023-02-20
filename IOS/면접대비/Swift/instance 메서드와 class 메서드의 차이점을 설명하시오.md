@@ -10,8 +10,7 @@
 
 Class 메서드는 인스턴스를 생성하지 않고 클래스 자체에 메서드 접근이 가능하다.
 
-### 기존 Static Method와의 차이점
+### Static Method와의 차이점
 
 - 원래 static은 `override`가 불가능하지만, Swift에서 static을 `override`가 가능하게 만드려고 Class method를 만든 것.
-- 즉, swift에서는 static method == static method
 - 이런 이유로 상속이 불가능한 구조체와 열거형엔 사용할 수 없다.
