@@ -1016,6 +1016,26 @@ func solution() {
 5. 키보드에서 손을 떼고, 종이와 펜으로 설계를 정확하게 하는데 초점 맞추기
 ```
 
+``` swift
+import Foundation
+
+let arr = [1, 3, 2, 5, 4, 6]
+var dp = [Int]()
+var max = 1
+
+for i in 1..<arr.count {
+    for j in 0...i-1.reversed() {
+				if arr[i] > arr[j] {
+					dp[i] = dp[i] <= dp[j] ? dp[j]+1: dp[i]
+				}
+    }
+}
+
+print(dp.max()! + 1)
+```
+
+
+
 ### 32.1. 동적 계획법 정리
 
 ```
