@@ -15,7 +15,7 @@ let value = readLine()
 ### case 1: `split()`으로 쪼개기
 
 ``` swift
-let nums = readLine()!.split(seperator: " ") 	// ["1", "2", "3", "4"]
+let nums = readLine()!.split(separator: " ") 	// ["1", "2", "3", "4"]
 ```
 
 ### case 2: `components()`로 쪼개기
