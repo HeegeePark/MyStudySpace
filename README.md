@@ -1,6 +1,6 @@
 # MyStudySpace
 ▶️ [깃블로그 바로가기](https://heegeepark.github.io/) </br>
-▶️ [알고리즘 공부 아카이브](https://github.com/HeegeePark/DataStructure)
+▶️ [코테대비 문제풀이 아카이브](https://github.com/HeegeePark/DataStructure)
 
 ## iOS
 ### RxSwift
